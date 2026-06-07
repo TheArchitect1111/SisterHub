@@ -2,14 +2,15 @@
 
 import { useState } from 'react'
 
-const PLUM_BG = '#1C0A2E'
-const PLUM_SURFACE = '#2A1247'
-const PLUM_BORDER = '#3D1A60'
+const WEBHOOK_FALLBACK = 'https://hook.us2.make.com/a9h57qarhot1mzbg3s6ayy8qvj6yobwf'
+
 const GOLD = '#CFB53B'
 const ROSE = '#E84393'
-const TEXT_PRIMARY = '#FAF6F1'
-const TEXT_MUTED = '#C4B0D8'
-const TEXT_LABEL = '#CFB53B'
+const TEXT_PRIMARY = '#111827'
+const TEXT_MUTED = '#6B7280'
+const TEXT_LABEL = '#92400E'
+const BORDER = '#E5E7EB'
+const SURFACE = '#FAFAFA'
 
 const ORGANIZATIONS = [
   { value: '', label: 'Select your organization' },
@@ -54,6 +55,8 @@ const EMPTY_FORM: FormState = {
   presidentEmail: '',
 }
 
+const FULL_WIDTH_KEYS = new Set(['chapterName', 'universityName', 'chapterEmail', 'presidentName', 'presidentEmail'])
+
 export default function BlueprintPage() {
   const [form, setForm] = useState<FormState>(EMPTY_FORM)
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
@@ -63,12 +66,7 @@ export default function BlueprintPage() {
     setForm((prev) => ({ ...prev, [key]: e.target.value }))
 
   const handleSubmit = async () => {
-    const webhookUrl = process.env.NEXT_PUBLIC_MAKE_WEBHOOK_URL
-    if (!webhookUrl) {
-      setErrorMessage('Webhook URL is not configured.')
-      setStatus('error')
-      return
-    }
+    const webhookUrl = process.env.NEXT_PUBLIC_MAKE_WEBHOOK_URL || WEBHOOK_FALLBACK
     setStatus('submitting')
     setErrorMessage('')
     try {
@@ -87,102 +85,103 @@ export default function BlueprintPage() {
 
   const inputStyle: React.CSSProperties = {
     width: '100%',
-    padding: '12px 16px',
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    border: `1px solid ${PLUM_BORDER}`,
+    padding: '11px 14px',
+    backgroundColor: '#FFFFFF',
+    border: `1px solid ${BORDER}`,
     borderRadius: '6px',
     color: TEXT_PRIMARY,
     fontSize: '0.95rem',
     outline: 'none',
-    transition: 'border-color 0.2s',
     fontFamily: 'inherit',
+    transition: 'border-color 0.15s',
   }
 
   const labelStyle: React.CSSProperties = {
     display: 'block',
     color: TEXT_LABEL,
     fontSize: '0.7rem',
-    letterSpacing: '0.12em',
+    letterSpacing: '0.1em',
     textTransform: 'uppercase',
-    marginBottom: '8px',
+    marginBottom: '7px',
     fontWeight: 600,
   }
 
   if (status === 'success') {
     return (
-      <main style={{ minHeight: '100vh', backgroundColor: PLUM_BG, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
+      <main style={{ minHeight: '100vh', backgroundColor: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
         <div style={{ textAlign: 'center', maxWidth: '480px' }}>
-          <div style={{ width: '72px', height: '72px', borderRadius: '50%', backgroundColor: ROSE, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 28px', fontSize: '2rem' }}>
+          <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: ROSE, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 28px', color: '#fff', fontSize: '1.75rem', lineHeight: 1 }}>
             &#10003;
           </div>
-          <h2 style={{ color: TEXT_PRIMARY, fontSize: '2rem', fontWeight: 300, marginBottom: '16px' }}>Blueprint Received</h2>
-          <p style={{ color: TEXT_MUTED, lineHeight: 1.8, marginBottom: '12px' }}>
-            Thank you, <span style={{ color: GOLD }}>{form.chapterName || 'your chapter'}</span>. We will review your information and be in touch within 24 to 48 hours.
+          <h2 style={{ color: TEXT_PRIMARY, fontSize: '1.875rem', fontWeight: 600, marginBottom: '14px' }}>Blueprint Received</h2>
+          <p style={{ color: TEXT_MUTED, lineHeight: 1.8, marginBottom: '10px' }}>
+            Thank you, <span style={{ color: GOLD, fontWeight: 600 }}>{form.chapterName || 'your chapter'}</span>. We will review your information and be in touch within 24 to 48 hours.
           </p>
-          <p style={{ color: TEXT_MUTED, fontSize: '0.9rem' }}>Check your inbox at <span style={{ color: GOLD }}>{form.chapterEmail}</span> for confirmation.</p>
+          <p style={{ color: TEXT_MUTED, fontSize: '0.875rem' }}>
+            Confirmation will be sent to <span style={{ color: TEXT_PRIMARY, fontWeight: 500 }}>{form.chapterEmail}</span>.
+          </p>
         </div>
       </main>
     )
   }
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: PLUM_BG, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '24px 48px', borderBottom: `1px solid ${PLUM_BORDER}` }}>
-        <a href="/" style={{ fontSize: '1.4rem', fontWeight: 600, color: TEXT_PRIMARY, textDecoration: 'none', letterSpacing: '-0.02em' }}>
+    <main style={{ minHeight: '100vh', backgroundColor: '#FFFFFF', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 48px', borderBottom: `1px solid ${BORDER}` }}>
+        <a href="/" style={{ fontSize: '1.4rem', fontWeight: 700, color: TEXT_PRIMARY, textDecoration: 'none', letterSpacing: '-0.02em' }}>
           Sister<span style={{ color: GOLD }}>Hub</span>
         </a>
         <span style={{ color: TEXT_MUTED, fontSize: '0.85rem' }}>Chapter Intake</span>
       </nav>
 
-      <div style={{ maxWidth: '640px', margin: '0 auto', padding: '60px 32px' }}>
-        <div style={{ marginBottom: '48px' }}>
-          <h1 style={{ color: TEXT_PRIMARY, fontSize: '2.25rem', fontWeight: 300, marginBottom: '12px', lineHeight: 1.2 }}>
+      <div style={{ maxWidth: '620px', margin: '0 auto', padding: '56px 32px 80px' }}>
+        <div style={{ marginBottom: '40px' }}>
+          <h1 style={{ color: TEXT_PRIMARY, fontSize: '2rem', fontWeight: 700, marginBottom: '10px', letterSpacing: '-0.02em' }}>
             Chapter Blueprint
           </h1>
-          <div style={{ width: '40px', height: '3px', backgroundColor: ROSE, borderRadius: '2px', marginBottom: '16px' }} />
+          <div style={{ width: '36px', height: '3px', backgroundColor: GOLD, borderRadius: '2px', marginBottom: '14px' }} />
           <p style={{ color: TEXT_MUTED, fontSize: '0.95rem', lineHeight: 1.7 }}>
             Tell us about your chapter. We use this information to configure your SisterHub portal and tailor your onboarding experience.
           </p>
         </div>
 
-        <div style={{ backgroundColor: PLUM_SURFACE, borderRadius: '12px', padding: '36px', border: `1px solid ${PLUM_BORDER}` }}>
-          <div style={{ marginBottom: '24px' }}>
+        <div style={{ backgroundColor: SURFACE, borderRadius: '12px', padding: '32px', border: `1px solid ${BORDER}` }}>
+          <div style={{ marginBottom: '22px' }}>
             <label style={labelStyle}>Organization</label>
             <select
               value={form.nationalOrganization}
               onChange={set('nationalOrganization')}
               style={{ ...inputStyle, cursor: 'pointer' }}
+              onFocus={(e) => { e.currentTarget.style.borderColor = GOLD }}
+              onBlur={(e) => { e.currentTarget.style.borderColor = BORDER }}
             >
               {ORGANIZATIONS.map((org) => (
-                <option key={org.value} value={org.value} style={{ backgroundColor: PLUM_SURFACE, color: TEXT_PRIMARY }}>
+                <option key={org.value} value={org.value}>
                   {org.label}
                 </option>
               ))}
             </select>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-            {FIELDS.map(({ key, label, type = 'text', placeholder }) => {
-              const isFullWidth = key === 'chapterEmail' || key === 'presidentName' || key === 'presidentEmail' || key === 'universityName' || key === 'chapterName'
-              return (
-                <div key={key} style={{ gridColumn: isFullWidth ? '1 / -1' : 'auto' }}>
-                  <label style={labelStyle}>{label}</label>
-                  <input
-                    type={type}
-                    value={(form as any)[key]}
-                    onChange={set(key as keyof FormState)}
-                    placeholder={placeholder}
-                    style={inputStyle}
-                    onFocus={(e) => { e.currentTarget.style.borderColor = ROSE }}
-                    onBlur={(e) => { e.currentTarget.style.borderColor = PLUM_BORDER }}
-                  />
-                </div>
-              )
-            })}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
+            {FIELDS.map(({ key, label, type = 'text', placeholder }) => (
+              <div key={key} style={{ gridColumn: FULL_WIDTH_KEYS.has(key) ? '1 / -1' : 'auto' }}>
+                <label style={labelStyle}>{label}</label>
+                <input
+                  type={type}
+                  value={(form as any)[key]}
+                  onChange={set(key as keyof FormState)}
+                  placeholder={placeholder}
+                  style={inputStyle}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = ROSE }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = BORDER }}
+                />
+              </div>
+            ))}
           </div>
 
           {status === 'error' && (
-            <div style={{ marginTop: '20px', padding: '12px 16px', backgroundColor: 'rgba(232,67,147,0.12)', border: `1px solid rgba(232,67,147,0.3)`, borderRadius: '6px', color: '#F472B6', fontSize: '0.875rem' }}>
+            <div style={{ marginTop: '18px', padding: '12px 16px', backgroundColor: '#FFF1F2', border: '1px solid #FECDD3', borderRadius: '6px', color: '#BE123C', fontSize: '0.875rem' }}>
               {errorMessage}
             </div>
           )}
@@ -192,26 +191,26 @@ export default function BlueprintPage() {
             disabled={status === 'submitting'}
             style={{
               width: '100%',
-              padding: '15px',
-              marginTop: '28px',
-              backgroundColor: status === 'submitting' ? 'rgba(232,67,147,0.5)' : ROSE,
-              color: TEXT_PRIMARY,
+              padding: '14px',
+              marginTop: '24px',
+              backgroundColor: status === 'submitting' ? '#f0a8cd' : ROSE,
+              color: '#FFFFFF',
               border: 'none',
               borderRadius: '6px',
-              fontSize: '0.85rem',
-              fontWeight: 600,
-              letterSpacing: '0.1em',
+              fontSize: '0.875rem',
+              fontWeight: 700,
+              letterSpacing: '0.08em',
               textTransform: 'uppercase',
               cursor: status === 'submitting' ? 'not-allowed' : 'pointer',
-              transition: 'opacity 0.2s',
               fontFamily: 'inherit',
+              transition: 'opacity 0.15s',
             }}
           >
             {status === 'submitting' ? 'Submitting...' : 'Submit Chapter Blueprint'}
           </button>
         </div>
 
-        <p style={{ textAlign: 'center', color: TEXT_MUTED, fontSize: '0.8rem', marginTop: '24px', lineHeight: 1.6 }}>
+        <p style={{ textAlign: 'center', color: TEXT_MUTED, fontSize: '0.78rem', marginTop: '20px', lineHeight: 1.6 }}>
           Your information is kept strictly confidential and used only to configure your SisterHub portal.
         </p>
       </div>
