@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-const WEBHOOK_FALLBACK = 'https://hook.us2.make.com/a9h57qarhot1mzbg3s6ayy8qvj6yobwf'
+const WEBHOOK = 'https://hook.us2.make.com/a9h57qarhot1mzbg3s6ayy8qvj6yobwf'
 
 const GOLD = '#CFB53B'
 const ROSE = '#E84393'
@@ -66,7 +66,7 @@ export default function BlueprintPage() {
     setForm((prev) => ({ ...prev, [key]: e.target.value }))
 
   const handleSubmit = async () => {
-    const webhookUrl = process.env.NEXT_PUBLIC_MAKE_WEBHOOK_URL || WEBHOOK_FALLBACK
+    const webhookUrl = WEBHOOK
     setStatus('submitting')
     setErrorMessage('')
     try {
@@ -181,7 +181,7 @@ export default function BlueprintPage() {
           </div>
 
           {status === 'error' && (
-            <div style={{ marginTop: '18px', padding: '12px 16px', backgroundColor: '#FFF1F2', border: '1px solid #FECDD3', borderRadius: '6px', color: '#BE123C', fontSize: '0.875rem' }}>
+            <div style={{ marginTop: '18px', padding: '12px 16px', backgroundColor: '#FFF3E0', border: '1px solid #FFB74D', borderRadius: '6px', color: '#E65100', fontSize: '0.875rem' }}>
               {errorMessage}
             </div>
           )}
