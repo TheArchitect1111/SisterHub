@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "sync-chassis": "node scripts/sync-portal-chassis.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.7",
+    "@ea/portal-chassis": "file:./vendor/portal-chassis",
     "lucide-react": "^0.469.0",
     "next": "^15.0.0",
     "react": "^18",
