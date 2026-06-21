@@ -1,11 +1,12 @@
 import Link from 'next/link'
 
-const GOLD = '#CFB53B'
-const ROSE = '#E84393'
-const TEXT_PRIMARY = '#111827'
+const GOLD = '#C9B37E'
+const PRIMARY = '#1F3A5F'
+const TEXT_PRIMARY = '#2B2B2B'
 const TEXT_MUTED = '#6B7280'
 const BORDER = '#E5E7EB'
-const SURFACE = '#FAFAFA'
+const BG = '#FAF8F5'
+const CARD = '#FFFFFF'
 
 const FEATURES = [
   {
@@ -36,22 +37,22 @@ const FEATURES = [
 
 export default function Home() {
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: '#FFFFFF', color: TEXT_PRIMARY, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <main style={{ minHeight: '100vh', backgroundColor: BG, color: TEXT_PRIMARY, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
 
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 48px', borderBottom: `1px solid ${BORDER}`, position: 'sticky', top: 0, backgroundColor: '#FFFFFF', zIndex: 10 }}>
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 48px', borderBottom: `1px solid ${BORDER}`, position: 'sticky', top: 0, backgroundColor: CARD, zIndex: 10 }}>
         <div style={{ fontSize: '1.5rem', fontWeight: 700, color: TEXT_PRIMARY, letterSpacing: '-0.02em' }}>
           Sister<span style={{ color: GOLD }}>Hub</span>
         </div>
         <Link
           href="/blueprint"
-          style={{ backgroundColor: ROSE, color: '#FFFFFF', padding: '10px 26px', borderRadius: '6px', fontSize: '0.85rem', textDecoration: 'none', fontWeight: 600 }}
+          style={{ backgroundColor: PRIMARY, color: '#FFFFFF', padding: '10px 26px', borderRadius: '6px', fontSize: '0.85rem', textDecoration: 'none', fontWeight: 600 }}
         >
           Get Started
         </Link>
       </nav>
 
       <section style={{ maxWidth: '860px', margin: '0 auto', padding: '96px 48px 72px', textAlign: 'center' }}>
-        <div style={{ display: 'inline-block', backgroundColor: 'rgba(207,181,59,0.1)', border: `1px solid rgba(207,181,59,0.35)`, borderRadius: '100px', padding: '5px 16px', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#92400E', marginBottom: '28px' }}>
+        <div style={{ display: 'inline-block', backgroundColor: '#F7F1E1', border: `1px solid ${BORDER}`, borderRadius: '100px', padding: '5px 16px', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: PRIMARY, marginBottom: '28px' }}>
           Built for NPHC Sororities
         </div>
         <h1 style={{ fontSize: '3.5rem', fontWeight: 800, color: TEXT_PRIMARY, marginBottom: '24px', lineHeight: 1.1, letterSpacing: '-0.03em' }}>
@@ -64,7 +65,7 @@ export default function Home() {
         <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link
             href="/blueprint"
-            style={{ backgroundColor: ROSE, color: '#FFFFFF', padding: '15px 38px', borderRadius: '6px', fontSize: '0.9rem', textDecoration: 'none', fontWeight: 700, display: 'inline-block' }}
+            style={{ backgroundColor: PRIMARY, color: '#FFFFFF', padding: '15px 38px', borderRadius: '6px', fontSize: '0.9rem', textDecoration: 'none', fontWeight: 700, display: 'inline-block' }}
           >
             Request Your Chapter Blueprint
           </Link>
@@ -77,7 +78,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={{ borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, padding: '24px 48px', display: 'flex', justifyContent: 'center', gap: '60px', flexWrap: 'wrap', backgroundColor: SURFACE }}>
+      <section style={{ borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, padding: '24px 48px', display: 'flex', justifyContent: 'center', gap: '60px', flexWrap: 'wrap', backgroundColor: CARD }}>
         {[['Alpha Kappa Alpha', 'AKA'], ['Delta Sigma Theta', 'DST'], ['Zeta Phi Beta', 'ZPB'], ['Sigma Gamma Rho', 'SGR']].map(([full, abbr]) => (
           <div key={abbr} style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '1.3rem', fontWeight: 800, color: GOLD, letterSpacing: '0.04em' }}>{abbr}</div>
@@ -97,9 +98,9 @@ export default function Home() {
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              style={{ backgroundColor: SURFACE, border: `1px solid ${BORDER}`, borderRadius: '10px', padding: '26px 22px' }}
+              style={{ backgroundColor: CARD, border: `1px solid ${BORDER}`, borderRadius: '10px', padding: '26px 22px' }}
             >
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: ROSE, marginBottom: '14px' }} />
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: GOLD, marginBottom: '14px' }} />
               <h3 style={{ color: TEXT_PRIMARY, fontSize: '0.95rem', fontWeight: 700, marginBottom: '8px' }}>{f.title}</h3>
               <p style={{ color: TEXT_MUTED, fontSize: '0.875rem', lineHeight: 1.7, margin: 0 }}>{f.description}</p>
             </div>
@@ -107,7 +108,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={{ backgroundColor: SURFACE, borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, padding: '80px 48px', textAlign: 'center' }}>
+      <section style={{ backgroundColor: CARD, borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, padding: '80px 48px', textAlign: 'center' }}>
         <h2 style={{ fontSize: '2.25rem', fontWeight: 700, color: TEXT_PRIMARY, marginBottom: '16px', letterSpacing: '-0.02em' }}>
           Ready to build your chapter portal?
         </h2>
@@ -116,7 +117,7 @@ export default function Home() {
         </p>
         <Link
           href="/blueprint"
-          style={{ backgroundColor: ROSE, color: '#FFFFFF', padding: '15px 42px', borderRadius: '6px', fontSize: '0.9rem', textDecoration: 'none', fontWeight: 700, display: 'inline-block' }}
+          style={{ backgroundColor: PRIMARY, color: '#FFFFFF', padding: '15px 42px', borderRadius: '6px', fontSize: '0.9rem', textDecoration: 'none', fontWeight: 700, display: 'inline-block' }}
         >
           Start Your Blueprint
         </Link>

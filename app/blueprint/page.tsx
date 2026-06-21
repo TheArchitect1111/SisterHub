@@ -2,20 +2,23 @@
 
 import { useState } from 'react'
 
-const WEBHOOK = 'https://hook.us2.make.com/a9h57qarhot1mzbg3s6ayy8qvj6yobwf'
-const GREEN = '#2d6a4f'
-const TEXT = '#1a1a1a'
+const WEBHOOK = process.env.MAKE_BLUEPRINT_WEBHOOK_URL ?? ''
+const PRIMARY = '#1F3A5F'
+const ACCENT_GOLD = '#C9B37E'
+const SUCCESS = '#7A9B76'
+const TEXT = '#2B2B2B'
 const MUTED = '#6B7280'
 const BORDER = '#E5E7EB'
-const SURFACE = '#FAFAFA'
-const FOCUS_COLOR = GREEN
+const BG = '#FAF8F5'
+const CARD = '#FFFFFF'
+const FOCUS_COLOR = PRIMARY
 
 // ─── Shared style helpers ────────────────────────────────────────────────────
 
 const inputStyle: React.CSSProperties = {
   width: '100%',
   padding: '10px 13px',
-  backgroundColor: '#fff',
+  backgroundColor: CARD,
   border: `1px solid ${BORDER}`,
   borderRadius: '6px',
   color: TEXT,
@@ -35,7 +38,7 @@ const labelStyle: React.CSSProperties = {
 }
 
 const cardStyle: React.CSSProperties = {
-  backgroundColor: '#fff',
+  backgroundColor: CARD,
   border: `1px solid ${BORDER}`,
   borderRadius: '10px',
   padding: '28px 28px 24px',
@@ -45,10 +48,10 @@ const cardStyle: React.CSSProperties = {
 const sectionHeaderStyle: React.CSSProperties = {
   fontSize: '1rem',
   fontWeight: 700,
-  color: GREEN,
+  color: PRIMARY,
   marginBottom: '22px',
   paddingBottom: '10px',
-  borderBottom: `2px solid ${GREEN}`,
+  borderBottom: `2px solid ${PRIMARY}`,
   textTransform: 'uppercase',
   letterSpacing: '0.04em',
 }
@@ -141,9 +144,9 @@ function MultiCheck({ options, selected, onChange }: {
             key={opt}
             style={{
               display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 12px',
-              border: `1px solid ${active ? GREEN : BORDER}`,
+              border: `1px solid ${active ? ACCENT_GOLD : BORDER}`,
               borderRadius: '20px', cursor: 'pointer', fontSize: '0.82rem',
-              backgroundColor: active ? `${GREEN}15` : '#fff', color: active ? GREEN : TEXT,
+              backgroundColor: active ? '#F7F1E1' : CARD, color: active ? PRIMARY : TEXT,
               fontWeight: active ? 600 : 400, userSelect: 'none',
             }}
           >
@@ -275,9 +278,9 @@ export default function BlueprintPage() {
 
   if (status === 'success') {
     return (
-      <main style={{ minHeight: '100vh', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px', fontFamily: 'system-ui, sans-serif' }}>
+      <main style={{ minHeight: '100vh', backgroundColor: BG, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px', fontFamily: 'system-ui, sans-serif' }}>
         <div style={{ textAlign: 'center', maxWidth: '460px' }}>
-          <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: GREEN, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', color: '#fff', fontSize: '1.75rem' }}>
+          <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: SUCCESS, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', color: '#fff', fontSize: '1.75rem' }}>
             &#10003;
           </div>
           <h2 style={{ color: TEXT, fontSize: '1.75rem', fontWeight: 700, marginBottom: '12px' }}>Blueprint Received</h2>
@@ -295,10 +298,10 @@ export default function BlueprintPage() {
   }
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: SURFACE, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px 48px', borderBottom: `1px solid ${BORDER}`, backgroundColor: '#fff', position: 'sticky', top: 0, zIndex: 10 }}>
+    <main style={{ minHeight: '100vh', backgroundColor: BG, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px 48px', borderBottom: `1px solid ${BORDER}`, backgroundColor: CARD, position: 'sticky', top: 0, zIndex: 10 }}>
         <a href="/" style={{ fontSize: '1.3rem', fontWeight: 700, color: TEXT, textDecoration: 'none' }}>
-          Sister<span style={{ color: GREEN }}>Hub</span>
+          Sister<span style={{ color: ACCENT_GOLD }}>Hub</span>
         </a>
         <span style={{ color: MUTED, fontSize: '0.82rem' }}>Chapter Intake Form</span>
       </nav>
@@ -308,7 +311,7 @@ export default function BlueprintPage() {
           <h1 style={{ fontSize: '1.875rem', fontWeight: 800, color: TEXT, marginBottom: '8px', letterSpacing: '-0.02em' }}>
             Chapter Blueprint
           </h1>
-          <div style={{ width: '32px', height: '3px', backgroundColor: GREEN, borderRadius: '2px', marginBottom: '12px' }} />
+          <div style={{ width: '32px', height: '3px', backgroundColor: ACCENT_GOLD, borderRadius: '2px', marginBottom: '12px' }} />
           <p style={{ color: MUTED, fontSize: '0.9rem', lineHeight: 1.7 }}>
             Complete all sections to help us configure your SisterHub portal. Your information is kept strictly confidential.
           </p>
@@ -514,7 +517,7 @@ export default function BlueprintPage() {
 
         {/* Error */}
         {status === 'error' && (
-          <div style={{ padding: '14px 18px', backgroundColor: '#FFF3E0', border: '1px solid #FFB74D', borderRadius: '8px', color: '#E65100', fontSize: '0.875rem', marginBottom: '20px' }}>
+          <div style={{ padding: '14px 18px', backgroundColor: '#F7F1E1', border: `1px solid ${BORDER}`, borderRadius: '8px', color: PRIMARY, fontSize: '0.875rem', marginBottom: '20px' }}>
             {errorMsg}
           </div>
         )}
@@ -526,7 +529,7 @@ export default function BlueprintPage() {
           style={{
             width: '100%',
             padding: '16px',
-            backgroundColor: status === 'submitting' ? '#6aab8f' : GREEN,
+            backgroundColor: status === 'submitting' ? SUCCESS : PRIMARY,
             color: '#fff',
             border: 'none',
             borderRadius: '8px',
