@@ -1,9 +1,5 @@
 @import '@ea/portal-chassis/styles/tokens.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* SisterHub identity tokens */
 :root {
   --color-brand:       #7B2D8B;
